@@ -6,10 +6,25 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    role: {
+    user_type: {
         type: String,
-        enum: ['Owner', 'Doctor', 'Receptionist'],
+        enum: ['Doctor', 'Receptionist'],
         required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    password: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    education: {
+        type: String,
+        required: true,
+        trim: true,
     },
     experience: {
         type: Number,
