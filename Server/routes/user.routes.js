@@ -1,10 +1,10 @@
 import { Router } from 'express';
+import { login } from '../controllers/user.controller.js';
 
 const router = Router();
 
-router.route('/')
-    .get()
-    .post();
+router.route('/login')
+    .post(login);
 
 
 router.route('/:id')

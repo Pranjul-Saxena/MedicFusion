@@ -1,53 +1,69 @@
-const mongoose = require('mongoose');
+// models/User.js
+import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      minlength: 3,
+      maxlength: 100,
+      trim: true,
     },
     user_type: {
-        type: String,
-        enum: ['Doctor', 'Receptionist'],
-        required: true,
+      type: String,
+      enum: ['Doctor', 'Receptionist'],
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
     },
     password: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    education: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      minlength: 8,
     },
     experience: {
-        type: Number,
-        required: true,
-        min: 0,
+      type: Number,
+      default: 0,
+      min: 0,
     },
-    salary: {
-        type: Number,
-        required: true,
+    education: {
+      type: String,
     },
-    clinic: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Clinic',
-        required: true,
+    clinic_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Clinic',
+      required: true,
     },
     address: {
-        line1: { type: String, required: true },
-        line2: { type: String },
-        city: { type: String, required: true },
-        pincode: { type: String, required: true },
+      type: String,
+      required: true,
+      trim: true,
     },
-},{ timestamps: true });
-
+    city: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    pincode: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    status: {
+      type: String,
+      enum: ['Active', 'InActive',],
+      required: true,
+      default: 'InActive',
+    },
+  },
+  { timestamps: true }
+);
 const User = mongoose.model('User', userSchema);
 
 export default User;

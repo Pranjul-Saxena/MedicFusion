@@ -1,26 +1,37 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const clinicSchema = new mongoose.Schema({
+const clinicSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      trim: true, // Removes extra white spaces
     },
     address: {
-        line1: { type: String, required: true },
-        line2: { type: String },
-        city: { type: String, required: true },
-        pincode: { type: String, required: true },
+      type: String,
+      required: true,
+      trim: true,
     },
-    specialization: {
-        type: [String],
-        required: true, // e.g., ['Cardiology', 'Orthopedics']
+    city: {
+      type: String,
+      required: true,
+      trim: true,
     },
-},{ timestamps: true });
+    pincode: {
+      type: String,
+      required: true,
+      validate: {
+        validator: (v) => /^\d{6}$/.test(v), // Validates 6-digit pincode
+        message: 'Invalid pincode format',
+      },
+    },
+  },
+  {
+    timestamps: true, // Automatically adds createdAt and updatedAt fields
+  }
+);
 
+// Create the Clinic model
 const Clinic = mongoose.model('Clinic', clinicSchema);
-
-
-
 
 export default Clinic;

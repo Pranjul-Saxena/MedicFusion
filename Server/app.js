@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
+import superadminRoutes from "./routes/superAdmin.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import patientRoutes from "./routes/patient.routes.js";
 import appointmentRoutes from "./routes/appointment.routes.js";
@@ -22,6 +23,7 @@ app.use('/ping', (req, res, next) => {
     res.send('Pong! Your MedicFusion is ready for services');
 });
 //route modules
+app.use('/api/v1/superadmin', superadminRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/patient', patientRoutes);
 app.use('/api/v1/appointment', appointmentRoutes);
