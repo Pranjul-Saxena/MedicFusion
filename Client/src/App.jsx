@@ -1,8 +1,13 @@
 import React from 'react'
+import Login from './components/Login'
+import AddClinic from './components/AddClinic'
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+    <Login />
+    {/* < AddClinic /> */}
+    </div>
   )
 }
 
