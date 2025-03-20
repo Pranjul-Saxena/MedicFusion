@@ -59,4 +59,38 @@ export const login = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+export const logout = async (req, res) => {
+    try {
+        // Clear the token stored on the client (if using cookies)
+        res.clearCookie("token", { httpOnly: true, secure: true });
 
+        // If using JWT in headers, just send a success response
+        return res.status(200).json({ success: true, message: "Logged out successfully" });
+    } catch (error) {
+        console.error("Logout error:", error);
+        return res.status(500).json({ success: false, message: "Logout failed" });
+    }
+};
+export const getDoctors = async (req, res) => {
+    try {
+      const { clinic_id } = req.params; // Get clinic_id from request parameters
+        console.log("clinic id inside",clinic_id); // Get
+      // Validate clinic_id
+      if (!clinic_id) {
+        return res.status(400).json({ message: 'Clinic ID is required.' });
+      }
+  
+      // Find doctors associated with the clinic
+      const doctors = await User.find({ clinic_id, user_type: 'Doctor', status: 'Active' });
+      console.log("dotor",doctors); // Get
+      // Check if doctors exist
+      if (!doctors.length) {
+        return res.status(404).json({ message: 'No active doctors found for this clinic.' });
+      }
+  
+      res.status(200).json({ success: true, doctors });
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+      res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+  };

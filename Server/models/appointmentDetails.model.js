@@ -1,24 +1,48 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const appointmentDetailsSchema = new mongoose.Schema({
-    patientId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Patient',
-      required: true,
+const appointmentSchema = new mongoose.Schema({
+    patient: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Patient', // Reference to the Patient model
+        required: true,
     },
-    examinedAt: {
-      type: Date,
-      required: true,
+    doctor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Reference to the Doctor model
+        required: true,
     },
-    problem: {
-      type: String,
-      required: true,
+    clinic: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Clinic', // Reference to the Clinic model (if needed)
+        required: true,
     },
-    description: {
-      type: String,
+    appointment: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Appointment', // Reference to the Appointment model (if needed)
+        required: false,
     },
-  },{ timestamps: true });
-  
-  const AppointmentDetail = mongoose.model('AppointmentDetail', appointmentDetailsSchema);
-  
-export default AppointmentDetail;
+    prescriptions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Prescription', // Reference to the Prescription model
+    }],
+    appointmentDate: {
+        type: Date,
+        required: true,
+    },
+    appointmentTime: {
+        type: String, // Use "HH:mm" format for storing time
+        required: true,
+    },
+    status: {
+        type: String,
+        enum: ['Scheduled', 'Completed', 'Cancelled'],
+        default: 'Scheduled',
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+});
+
+const Appointment = mongoose.model('Appointment', appointmentSchema);
+export default Appointment;

@@ -25,13 +25,11 @@ app.use('/ping', (req, res, next) => {
 //route modules
 app.use('/api/v1/superadmin', superadminRoutes);
 app.use('/api/v1/user', userRoutes);
-app.use('/api/v1/patient', patientRoutes);
-app.use('/api/v1/appointment', appointmentRoutes);
+app.use('/api/v1/patients', patientRoutes);
+app.use('/api/v1/appointments', appointmentRoutes);
 
 app.all('*', (req, res, next) => {
     res.status(404).send('404 Not Found');
 });
-
 // app.use(errorMiddleware);
-
 export default app;

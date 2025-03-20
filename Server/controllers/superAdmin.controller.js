@@ -5,9 +5,10 @@ import User from "../models/user.model.js";
 export const addClinic = async function (req, res, next) {
     try {
         const { name, address, city, pincode } = req.body;
+        console.log(name, address, city, pincode);
 
         if (!name || !address || !city || !pincode) {
-            return res.status(400).json({ error: 'All fields are required' });
+            return res.status(400).json({ error: 'All fields are required including name address city and pincode' });
         }
 
         if (name.length < 3 || name.length > 100) {
@@ -38,7 +39,6 @@ export const addClinic = async function (req, res, next) {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
-
 export const getClinics = async (req, res, next) => {
     try {
         // Fetch all clinics with sorting and selection
@@ -56,7 +56,6 @@ export const getClinics = async (req, res, next) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
 export const addUser = async (req, res, next) => {
     // console.log('hello');
     try {
@@ -138,7 +137,6 @@ export const addUser = async (req, res, next) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
 export const getUsers = async (req, res, next) => {
   try {
     // Fetch all users and populate the 'clinic_id' to get clinic details
@@ -156,4 +154,3 @@ export const getUsers = async (req, res, next) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
