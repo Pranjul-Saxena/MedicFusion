@@ -34,6 +34,3 @@
 - Git & GitHub (Version Control)  
 - dotenv (Environment Variables)  
 
-## 🔥 Installation & Setup
-Follow these steps to set up **MedicFusion** on your local system.
-
