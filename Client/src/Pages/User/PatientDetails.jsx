@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
-import axios from "axios";
+import axiosInstance from "../../Helpers/axiosInstance";
 import HomeLayout from "../../layouts/HomeLayout";
 
 const PatientDetails = () => {
@@ -16,10 +16,10 @@ const PatientDetails = () => {
     useEffect(() => {
         const fetchPatientDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5016/api/v1/patients/${patientId}`);
+                const response = await axiosInstance.get(`patients/${patientId}`);
                 setPatient(response.data.patient);                        // set patient data here for details of a particular patient
 
-                const response1 = await axios.get(`http://localhost:5016/api/v1/appointments/getappointments?order=${order}&sortBy=${sortBy}`, {
+                const response1 = await axiosInstance.get(`appointments/getappointments?order=${order}&sortBy=${sortBy}`, {
                     params: { patientId }
                 });
                 setAppointments(response1.data.appointments);            //set appointments data here for all appointments of a particular patient

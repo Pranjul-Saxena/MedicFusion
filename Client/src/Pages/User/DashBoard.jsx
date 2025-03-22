@@ -1,7 +1,7 @@
 import HomeLayout from '../../layouts/HomeLayout';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../Helpers/axiosInstance";
 import toast from "react-hot-toast";
 
 const DashBoard = () => {
@@ -16,8 +16,8 @@ const DashBoard = () => {
     const fetchAppointments = async () => {
       try {
         const clinic_id = JSON.parse(localStorage.getItem("data"))?.clinic_id?._id;
-        const { data } = await axios.get(
-          `http://localhost:5016/api/v1/appointments/getappointments?clinic_id=${clinic_id}&sortBy=${sortBy}&order=${order}`
+        const { data } = await axiosInstance.get(
+          `appointments/getappointments?clinic_id=${clinic_id}&sortBy=${sortBy}&order=${order}`
         );
         setAppointments(data.appointments);
       } catch (error) {

@@ -72,16 +72,16 @@ const AddPatient = () => {
         dispatch(addPatient({ ...formData, clinic_id }));
 
         // Reset form after submission
-        // setFormData({
-        //     patient_name: "",
-        //     contact_no: "",
-        //     email_add: "",
-        //     doctor_re: "",
-        //     age: "",
-        //     address: "",
-        //     gender: "",
-        //     advance_pay: "",
-        // });
+        setFormData({
+            patient_name: "",
+            contact_no: "",
+            email_add: "",
+            doctor_re: "",
+            age: "",
+            address: "",
+            gender: "",
+            advance_pay: "",
+        });
     };
 
     return (

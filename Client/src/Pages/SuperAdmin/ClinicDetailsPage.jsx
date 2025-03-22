@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HomeLayout from '../../layouts/HomeLayout';
-import axios from 'axios';
+import axiosInstance from "../../Helpers/axiosInstance";
 
 const ClinicDetails = () => {
   const [clinics, setClinics] = useState([]);
@@ -9,7 +9,7 @@ const ClinicDetails = () => {
   useEffect(() => {
     const fetchClinics = async () => {
       try {
-        const response = await axios.get('http://localhost:5016/api/v1/superadmin/getClinic');
+        const response = await axiosInstance.get('superadmin/getClinic');
         console.log(response);
         setClinics(response.data.clinics);
       } catch (error) {

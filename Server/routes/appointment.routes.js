@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { addAppointment, getAppointments, getPrescriptions, addPrescription } from '../controllers/appointment.controller.js';
+import { upload } from '../middlewares/multer.middleware.js';
 
 const router = Router();
 
 router.route('/prescription/:appointmentId')
     .get(getPrescriptions)
-    .post(addPrescription)
+    .post(upload.array("reports", 5), addPrescription)
 
 router.post('/addappointment', addAppointment);
 

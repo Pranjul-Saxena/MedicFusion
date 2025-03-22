@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HomeLayout from "../../../layouts/HomeLayout";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-
+import axiosInstance from "../../../Helpers/axiosInstance";
 const AppointmentDetails = () => {
   const [prescription, setPrescription] = useState({
     symptoms: "",
@@ -24,17 +23,20 @@ const AppointmentDetails = () => {
     const fetchData = async () => {
       try {
         const [patientResponse, appointmentsResponse, prescriptionResponse] = await Promise.all([
-          axios.get(`http://localhost:5016/api/v1/patients/${patientId}`),
-          axios.get(`http://localhost:5016/api/v1/appointments/getappointments`, {
+          axiosInstance.get(`patients/${patientId}`),
+          axiosInstance.get(`appointments/getappointments`, {
             params: { patientId, appointmentId },
           }),
-          axios.get(`http://localhost:5016/api/v1/appointments/prescription/${appointmentId}`)
+          axiosInstance.get(`appointments/prescription/${appointmentId}`)
         ]);
 
         setPatient(patientResponse.data.patient);
         setAppointments(appointmentsResponse.data.appointments);
-        if (prescriptionResponse.data.length) {
-          setPrescription(prescriptionResponse.data[0]);
+        console.log(prescriptionResponse.data.prescriptions[0]);
+        console.log(prescriptionResponse.data.prescriptions[0].reports);
+        if (prescriptionResponse.data) {
+          setPrescription(prescriptionResponse.data.prescriptions[0]);
+          setReports(prescriptionResponse.data.prescriptions[0].reports)
         }
       } catch (err) {
         setError("Failed to load data. Please try again.");
@@ -74,14 +76,31 @@ const AppointmentDetails = () => {
 
   const handleSavePrescription = async () => {
     try {
-      await axios.post(`http://localhost:5016/api/v1/appointments/prescription/${appointmentId}`, {
-        ...prescription,
-        appointmentId,
+      const formData = new FormData();
+
+      // Append prescription details
+      formData.append("symptoms", prescription.symptoms);
+      formData.append("medicine", prescription.medicine);
+      formData.append("tests", prescription.tests);
+      formData.append("suggestions", prescription.suggestions);
+      formData.append("appointmentId", appointmentId);
+
+      // Append each file
+      reports.forEach((file, index) => {
+        formData.append(`reports`, file);
       });
+
+      await axiosInstance.post(
+        `appointments/prescription/${appointmentId}`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
       setIsEditing(false);
-      alert("Prescription saved successfully!");
+      alert("Prescription and reports saved successfully!");
     } catch (error) {
-      console.error("Error saving prescription", error);
+      console.log(error);
+      console.error("Error saving prescription and reports", error);
     }
   };
 
@@ -93,13 +112,13 @@ const AppointmentDetails = () => {
     );
   }
 
-  if (error) {
-    return (
-      <HomeLayout>
-        <p className="text-center text-red-500">{error}</p>
-      </HomeLayout>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <HomeLayout>
+  //       <p className="text-center text-red-500">{error}</p>
+  //     </HomeLayout>
+  //   );
+  // }
 
   return (
     <HomeLayout>
@@ -193,24 +212,39 @@ const AppointmentDetails = () => {
                 Test Reports
               </h3>
               <div className="grid grid-cols-4 gap-4 mt-6">
-                {reports.map((report, index) => (
-                  <div key={index} className="p-4 flex flex-col items-center">
-                    {report.type.startsWith("image/") ? (
-                      <img
-                        src={URL.createObjectURL(report)}
-                        alt="Preview"
-                        className="w-20 h-20 object-cover rounded-md"
-                      />
-                    ) : (
-                      <div className="w-20 h-20 flex items-center justify-center bg-gray-200 rounded-md">
-                        <span className="text-lg">📄</span>
-                      </div>
-                    )}
-                    <span className="text-center mt-2 truncate w-20" title={report.name}>
-                      {report.name}
-                    </span>
-                  </div>
-                ))}
+                {reports.map((report, index) => {
+                  const isFileObject = report instanceof File;
+                  const fileName = isFileObject ? report.name : report.split('/').pop(); // Extract file name from URL
+
+                  return (
+                    <div key={index} className="p-4 flex flex-col items-center">
+                      {isFileObject ? (
+                        report.type.startsWith("image/") ? (
+                          <img
+                            src={URL.createObjectURL(report)}
+                            alt="Preview"
+                            className="w-20 h-20 object-cover rounded-md"
+                          />
+                        ) : (
+                          <div className="w-20 h-20 flex items-center justify-center bg-gray-200 rounded-md">
+                            <span className="text-lg">📄</span>
+                          </div>
+                        )
+                      ) : (
+                        <img
+                          src={report} // Assuming it's a URL from the backend
+                          alt="Report"
+                          className="w-20 h-20 object-cover rounded-md"
+                        />
+                      )}
+                      <span className="text-center mt-2 truncate w-20" title={fileName}>
+                        {fileName}
+                      </span>
+                    </div>
+                  );
+                })}
+
+
                 {isEditing && (
                   <div className="p-4 flex flex-col items-center">
                     <input
@@ -229,12 +263,6 @@ const AppointmentDetails = () => {
                 )}
               </div>
             </div>
-            {/*<div className="border p-6 rounded-lg">
-              <h3 className="text-center text-black font-semibold text-lg">Test Reports</h3>
-              {isEditing && (
-                <input type="file" onChange={handleFileChange} className="block w-full mt-4" />
-              )}
-            </div>*/}
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HomeLayout from '../../layouts/HomeLayout';
+import axiosInstance from "../../Helpers/axiosInstance";
+
 import axios from 'axios';
 
 const UserList = () => {
@@ -9,7 +11,7 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5016/api/v1/superadmin/userDetails');
+        const response = await axiosInstance.get('superadmin/userDetails');
         console.log(response);
         setUsers(response.data.users);
       } catch (error) {
