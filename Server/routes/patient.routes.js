@@ -15,7 +15,7 @@ router.route('/getpatients/:clinic_id')
 router.patch('/update-patient/:patient_id', updatePatient);
 // Route to delete a patient
 router.delete('/delete-patient/:patient_id', deletePatient);
-router.get('/search', searchPatients);
+router.get('/:clinic_id/search', searchPatients);
 router.get('/:id', getPatientDetails);
 
 export default router;

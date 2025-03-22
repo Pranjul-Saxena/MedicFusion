@@ -193,23 +193,29 @@ export const searchPatients = async (req, res) => {
   console.log('Search Route Hit');
   console.log('Query:', req.query);
 
-  const { query } = req.query;
+  const { query, clinic_id } = req.query;
+  console.log(clinic_id);
   if (!query) return res.status(400).json({ message: 'Query parameter is required' });
+  if (!clinic_id) {
+    return res.status(400).json({ message: 'Clinic ID is required' });
+  }
 
   try {
     const patients = await Patient.find({
+      clinic_id, // Ensure the search is within the specified clinic
       $or: [
         { patient_name: { $regex: query, $options: 'i' } },
         { contact_no: { $regex: query, $options: 'i' } },
       ],
     });
+
     console.log('Patients Found:', patients);
     return res.status(200).json({ patients });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'Server Error' });
   }
-}
+};
 // Get Patient Details by ID
 export const getPatientDetails = async (req, res) => {
   try {

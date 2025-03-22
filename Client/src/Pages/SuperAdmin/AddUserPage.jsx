@@ -20,7 +20,6 @@ const AddUserPage = () => {
     city: "",
     pincode: "",
   });
-
   const [clinics, setClinics] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -28,7 +27,6 @@ const AddUserPage = () => {
     const fetchClinics = async () => {
       try {
         const response = await axiosInstance.get("superadmin/getClinic");
-        // console.log('Fetched clinics:', response.data.clinics);
         setClinics(response.data.clinics);
       } catch (error) {
         console.error("Error fetching clinics:", error);
@@ -51,10 +49,7 @@ const AddUserPage = () => {
     e.preventDefault();
     try {
       const response = await dispatch(addUser(formData));
-      console.log("User added successfully:", response);
-      // alert("User added successfully");
-      if (response?.payload?.success)
-        navigate("/home");
+      if (response?.payload?.success) navigate("/home");
       setFormData({
         name: "",
         user_type: "Doctor",
@@ -80,13 +75,13 @@ const AddUserPage = () => {
 
   return (
     <HomeLayout>
-      <div className="flex flex-col justify-center items-center p-10">
-        <h2 className="text-2xl font-bold mb-4">Add User</h2>
+      <div className="flex flex-col justify-center items-center p-4 sm:p-6 md:p-10">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">Add User</h2>
         <form
           onSubmit={handleSubmit}
-          className="max-w-2xl w-full p-6 bg-white rounded-lg shadow-lg"
+          className="max-w-lg w-full p-4 sm:p-6 md:p-8 bg-white rounded-lg shadow-lg"
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label>Name</label>
               <input
@@ -99,7 +94,6 @@ const AddUserPage = () => {
                 required
               />
             </div>
-
             <div>
               <label>User Type</label>
               <select
@@ -112,7 +106,6 @@ const AddUserPage = () => {
                 <option value="Receptionist">Receptionist</option>
               </select>
             </div>
-
             <div>
               <label>Email</label>
               <input
@@ -125,7 +118,6 @@ const AddUserPage = () => {
                 required
               />
             </div>
-
             <div>
               <label>Password</label>
               <input
@@ -138,7 +130,6 @@ const AddUserPage = () => {
                 required
               />
             </div>
-
             <div>
               <label>Experience</label>
               <input
@@ -150,7 +141,6 @@ const AddUserPage = () => {
                 className="w-full p-2 border rounded"
               />
             </div>
-
             <div>
               <label>Education</label>
               <input
@@ -162,7 +152,6 @@ const AddUserPage = () => {
                 className="w-full p-2 border rounded"
               />
             </div>
-
             <div>
               <label>Clinic Name</label>
               <input
@@ -187,7 +176,6 @@ const AddUserPage = () => {
                 </div>
               )}
             </div>
-
             <div>
               <label>Address</label>
               <input
@@ -199,7 +187,6 @@ const AddUserPage = () => {
                 className="w-full p-2 border rounded"
               />
             </div>
-
             <div>
               <label>City</label>
               <input
@@ -211,7 +198,6 @@ const AddUserPage = () => {
                 className="w-full p-2 border rounded"
               />
             </div>
-
             <div>
               <label>Pincode</label>
               <input
@@ -224,7 +210,6 @@ const AddUserPage = () => {
               />
             </div>
           </div>
-
           <button
             type="submit"
             className="mt-6 w-full p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"

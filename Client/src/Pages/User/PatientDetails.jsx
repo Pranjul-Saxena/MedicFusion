@@ -51,25 +51,25 @@ const PatientDetails = () => {
 
     return (
         <HomeLayout>
-            <div className="max-w-4xl mx-auto flex flex-col w-[80%] p-6">
-                <div className="bg-white p-10 shadow-md rounded-lg">
-                    <h2 className="text-2xl font-bold mb-4">Patient Details</h2>
+            <div className="px-5 pt-10 p-0">
+                <div className="bg-white p-6 shadow-md rounded-lg">
+                    <h2 className="text-2xl font-bold mb-3">Patient Details</h2>
 
-                    <div className="mb-4">
+                    <div className="mb-1">
                         <strong>Name:</strong> {patient.patient_name}
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-1">
                         <strong>Contact:</strong> {patient.contact_no}
                     </div>
 
                     {patient.doctor && (
-                        <div className="mb-4">
+                        <div className="mb-3">
                             <strong>Doctor:</strong> {patient.doctor.name} ({patient.doctor.specialization})
                         </div>
                     )}
 
                     {/* Appointments Table */}
-                    <h3 className="text-lg font-semibold mt-6">Appointments</h3>
+                    <h3 className="text-lg font-semibold mt-3">Appointments</h3>
                     <table className="w-full border-collapse border border-gray-300 mt-2">
                         <thead>
                             <tr className="bg-gray-800 text-white">
@@ -100,7 +100,7 @@ const PatientDetails = () => {
                                 appointments.map((appointment, idx) => (
                                     <tr
                                         key={appointment._id} // Assuming `_id` is the unique identifier
-                                        className="bg-gray-100 hover:bg-gray-200 cursor-pointer"
+                                        className="bg-gray-100 hover:bg-gray-200 cursor-pointer text-center"
                                         onClick={() => handleRowClick(appointment._id)} // Navigate on click
                                     >
                                         <td className="p-3 border">{idx + 1}</td>
