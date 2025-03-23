@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import env from "./constants.js";
 mongoose.set('strict', false);
 
 const connectionToDB = async (connection) => {
     try {
         const { connection } = await mongoose.connect(
-            process.env.MONGO_URI || `mongodb://127.0.0.1:27017/Sample`
+            env.MONGO_URI || `mongodb://127.0.0.1:27017/Sample`
         )
         if (connection) {
             console.log(`Connected to MongoDB successfully : ${connection.host}`);

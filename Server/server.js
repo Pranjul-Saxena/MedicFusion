@@ -2,8 +2,9 @@ import app from './app.js';
 import { config } from "dotenv";
 import cloudnary from "cloudinary";
 import connectionToDB from './config/dbConnection.js';
+import env from './config/constants.js';
 config();
-const PORT = process.env.PORT || 5000;
+const PORT = env.PORT || 5000;
 
 // cloudnary.v2.config({
 //     cloud_name: process.env.CLOUDNARY_CLOUD_NAME,

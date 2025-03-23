@@ -11,7 +11,7 @@ import env from "./config/constants.js";
 // import errorMiddleware from "./middlewares/error.middleware.js";
 
 const app = express();
-console.log(">>>>env>>>>", env.FRONTEND_URL);
+// console.log(">>>>env>>>>", env.FRONTEND_URL);
 app.use(cors({
     origin: [env.FRONTEND_URL],
     // origin: "http://localhost:3000",
