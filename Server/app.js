@@ -7,14 +7,14 @@ import userRoutes from "./routes/user.routes.js";
 import patientRoutes from "./routes/patient.routes.js";
 import appointmentRoutes from "./routes/appointment.routes.js";
 import path from "path";
+import env from "./config/constants.js";
 // import errorMiddleware from "./middlewares/error.middleware.js";
-// import env from "./config/constant/index.js";
 
 const app = express();
-// console.log(env.FRONTEND_URL);
+console.log(">>>>env>>>>", env.FRONTEND_URL);
 app.use(cors({
-    // origin: [env.FRONTEND_URL],
-    origin: "http://localhost:3000",
+    origin: [env.FRONTEND_URL],
+    // origin: "http://localhost:3000",
     credentials: true
 }));
 // Serve uploaded files statically
@@ -34,5 +34,4 @@ app.use('/api/v1/appointments', appointmentRoutes);
 app.all('*', (req, res, next) => {
     res.status(404).send('404 Not Found');
 });
-// app.use(errorMiddleware);
 export default app;
