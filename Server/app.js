@@ -18,7 +18,7 @@ app.use(cors({
     credentials: true
 }));
 // Serve uploaded files statically
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+app.use("/uploads/reports", express.static(path.join(process.cwd(), "uploads")));
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev")); //what is the server doing? it give the info
