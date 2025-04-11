@@ -14,22 +14,30 @@ import DashBoard from './Pages/User/DashBoard';
 import Appointments from './Pages/User/Appointment/Appointments';
 import PatientDetails from './Pages/User/PatientDetails';
 import AppointmentDetails from './Pages/User/Appointment/AppointmentDetails';
+import LandingPage from './components/LandingPage';
+import LandingPage1 from './components/LandingPage1';
+import Pricing from './components/Pricing';
+import Contact from './components/Contact';
+import Features from './components/LandingPage/Features';
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<LandingPage/>} />
+        <Route path="/pricing" element={<Pricing/>} />
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/features" element={<Features/>} />
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<HomeLayout />} />
+        <Route path="/home" element={<DashBoard />} />
         <Route path="/addClinic" element={<AddClinicPage />} />
         <Route path="/addUser" element={<AddUserPage />} />
         <Route path="/userDetails" element={<UserDetailsPage />} />
         <Route path="/clinicDetails" element={<ClinicDetails />} />
-        <Route path="/addpatient" element={<AddPatient />} />
-        <Route path="/patientlist" element={<PatientList />} />
-        <Route path="/addappointment" element={<AddAppointment />} />
         <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/addpatient" element={<AddPatient />} />
+        <Route path="/addappointment" element={<AddAppointment />} />
+        <Route path="/patientlist" element={<PatientList />} />
         <Route path="/appointments" element={<Appointments />} />
         <Route path="/patient/:patientId" element={<PatientDetails />} />
         <Route path="/patient/appointments/:appointmentId/:patientId" element={<AppointmentDetails />} />

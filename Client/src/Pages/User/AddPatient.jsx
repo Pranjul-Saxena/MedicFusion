@@ -3,20 +3,22 @@ import { useSelector, useDispatch } from "react-redux";
 import HomeLayout from "../../layouts/HomeLayout";
 import axiosInstance from "../../Helpers/axiosInstance";
 import mongoose from "mongoose";
+import { useNavigate } from 'react-router-dom';
 import { addPatient } from "../../Redux/Slices/PatientSlice"; // Import addPatient action
 
 const AddPatient = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         patient_name: "",
         contact_no: "",
         email_add: "",
-        doctor_re: "",
+        // doctor_re: "",
         age: "",
         address: "",
         gender: "",
-        advance_pay: "",
+        // advance_pay: "",
     });
 
     const [doctors, setDoctors] = useState([]);
@@ -41,11 +43,11 @@ const AddPatient = () => {
             if (response.data.success) {
                 setDoctors(response.data.doctors);
             } else {
-                setError(response.data.message || "Failed to fetch doctors");
+                // setError(response.data.message || "Failed to fetch doctors");
             }
         } catch (error) {
             console.error("Error fetching doctors:", error);
-            setError("Error fetching doctors. Please try again.");
+            // setError("Error fetching doctors. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -76,12 +78,14 @@ const AddPatient = () => {
             patient_name: "",
             contact_no: "",
             email_add: "",
-            doctor_re: "",
+            // doctor_re: "",
             age: "",
             address: "",
             gender: "",
-            advance_pay: "",
+            // advance_pay: "",
         });
+        navigate('/addappointment');
+
     };
 
     return (
@@ -94,7 +98,7 @@ const AddPatient = () => {
                         {/* Name & Contact */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-gray-600">Patient Name</label>
+                                <label className="block text-gray-600">Patient Name<span className="text-red-500">*</span></label>
                                 <input
                                     type="text"
                                     name="patient_name"
@@ -106,7 +110,7 @@ const AddPatient = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-600">Contact Number</label>
+                                <label className="block text-gray-600">Contact Number<span className="text-red-500">*</span></label>
                                 <input
                                     type="text"
                                     name="contact_no"
@@ -134,6 +138,21 @@ const AddPatient = () => {
                                 />
                             </div>
                             <div>
+                                <label className="block text-gray-600">Gender<span className="text-red-500">*</span></label>
+                                <select
+                                    name="gender"
+                                    value={formData.gender}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+                                >
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            {/*<div>
                                 <label className="block text-gray-600">Doctor's Reference</label>
                                 {loading ? (
                                     <p className="text-gray-600">Loading doctors...</p>
@@ -155,6 +174,7 @@ const AddPatient = () => {
                                 )}
                                 {error && <p className="text-red-500">{error}</p>}
                             </div>
+                            */}
                         </div>
 
                         {/* Age & Address */}
@@ -186,22 +206,8 @@ const AddPatient = () => {
                         </div>
 
                         {/* Gender & Advance Payment */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-gray-600">Gender</label>
-                                <select
-                                    name="gender"
-                                    value={formData.gender}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-                                >
-                                    <option value="">Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
+                        {/*<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                             <div>
                                 <label className="block text-gray-600">Advance Payment</label>
                                 <input
@@ -214,7 +220,7 @@ const AddPatient = () => {
                                     className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
                                 />
                             </div>
-                        </div>
+                        </div>*/}
 
                         {/* Submit Button */}
                         <div className="flex justify-center">

@@ -24,6 +24,7 @@ const AddAppointment = () => {
     // State for appointment details
     const [appointmentDate, setAppointmentDate] = useState('');
     const [appointmentTime, setAppointmentTime] = useState('');
+    const [OtherDetails, setOtherDetails] = useState('');
 
     // Redux state (doctors, clinic ID)
     const { doctors } = useSelector((state) => state.superadmin);
@@ -188,7 +189,7 @@ const AddAppointment = () => {
                                             onClick={() => handleSelectDoctor(doctor)}
                                             className="cursor-pointer hover:bg-gray-200 p-2"
                                         >
-                                            {doctor.name} ({doctor.specialty})
+                                            {doctor.name}
                                         </p>
                                     ))
                                 )}
@@ -196,14 +197,20 @@ const AddAppointment = () => {
                         </div>
 
                         {/* Date & Time Selection */}
-                        <div className="mb-4">
-                            <label className="block mb-2 font-semibold">Select Date:</label>
-                            <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} className="border p-2 w-full rounded-md" />
-                        </div>
+                        <div className='flex gap-10'>
+                            <div className="mb-4">
+                                <label className="block mb-2 font-semibold">Select Date:</label>
+                                <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} className="border p-2 w-full rounded-md" />
+                            </div>
 
-                        <div className="mb-4">
-                            <label className="block mb-2 font-semibold">Select Time:</label>
-                            <input type="time" value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} className="border p-2 w-full rounded-md" />
+                            <div className="mb-4">
+                                <label className="block mb-2 font-semibold">Select Time:</label>
+                                <input type="time" value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} className="border p-2 w-full rounded-md" />
+                            </div>
+                            <div>
+                                <label className="block mb-2 font-semibold">Other Details</label>
+                                <input type="text-area" value={OtherDetails} onChange={(e) => setOtherDetails(e.target.value)} className="border p-2 w-full rounded-md" />
+                            </div>
                         </div>
 
                         {/* Submit Button */}

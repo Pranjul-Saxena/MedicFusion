@@ -46,16 +46,24 @@ const DashBoard = () => {
   return (
     <HomeLayout>
       <div className="flex flex-col w-full max-w-6xl mx-auto mt-6 p-4 max-sm:p-2 md:p-8">
-        
+
         {/* Header Section */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-800">Appointments</h2>
-          <Link
-            to="/addappointment"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-          >
-            + Add Appointment
-          </Link>
+          <div className='flex gap-2'>
+            <Link
+              to="/addpatient"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            >
+              + Add New Patient
+            </Link>
+            <Link
+              to="/addappointment"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            >
+              + Add Existing Patient
+            </Link>
+          </div>
         </div>
 
         {/* Appointments Table */}

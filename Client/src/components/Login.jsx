@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../Redux/Slices/AuthSlice';
+import LandingLayout from './landing/layout/LandingLayout';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,13 +27,14 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-4">
+    <LandingLayout>
+      <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-4">
       <div className=" max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-white shadow-md rounded-xl p-6">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-gray-800">Login</h1>
           <h6 className="text-gray-600 mt-2">Please login to book an appointment</h6>
         </div>
-        <form onSubmit={onLogin} className="space-y-4">
+        <form onSubmit={onLogin} className="space-y-4" autoComplete="off">
           <div>
             <label className="block text-gray-700 mb-1 text-sm font-medium">Email</label>
             <input
@@ -41,7 +43,7 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg text-sm bg-white text-black  focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
             />
           </div>
@@ -53,7 +55,7 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg bg-white text-black text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
             />
           </div>
@@ -66,6 +68,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    </LandingLayout>
   );
 };
 

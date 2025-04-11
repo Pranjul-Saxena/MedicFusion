@@ -1,0 +1,20 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="110"
+  height="110"
+  viewBox="0 0 100 100"
+  fill="none"
+>
+  <circle cx="50" cy="50" r="48" fill="white" />
+  <text
+    x="50"
+    y="62"
+    text-anchor="middle"
+    fill="#1a237e"
+    font-size="62"
+    font-weight="bold"
+    font-family="sans-serif"
+  >
+    MF
+  </text>
+</svg>

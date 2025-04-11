@@ -140,6 +140,7 @@ function HomeLayout({ children }) {
                 {!isLoggedIn ? (
                     <div className="flex flex-col justify-center items-center h-screen">
                         <h1 className="text-4xl font-extrabold text-center">Welcome to MedicFusion</h1>
+                        <strong className="text-left">Empowering Clinics. Enhancing Care</strong>
                         <NavLink to="/login" className="mt-8 px-6 py-3 bg-black text-white rounded-lg">
                             Login
                         </NavLink>
