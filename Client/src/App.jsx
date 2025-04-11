@@ -2,7 +2,6 @@ import React from 'react'
 import { Route, Routes } from "react-router-dom";
 
 import Login from './components/Login'
-import HomeLayout from './layouts/HomeLayout';
 import AddClinicPage from './Pages/SuperAdmin/AddClinicPage';
 import AddUserPage from './Pages/SuperAdmin/AddUserPage';
 import UserDetailsPage from './Pages/SuperAdmin/UserDetailsPage';
@@ -15,7 +14,6 @@ import Appointments from './Pages/User/Appointment/Appointments';
 import PatientDetails from './Pages/User/PatientDetails';
 import AppointmentDetails from './Pages/User/Appointment/AppointmentDetails';
 import LandingPage from './components/LandingPage';
-import LandingPage1 from './components/LandingPage1';
 import Pricing from './components/Pricing';
 import Contact from './components/Contact';
 import Features from './components/LandingPage/Features';
