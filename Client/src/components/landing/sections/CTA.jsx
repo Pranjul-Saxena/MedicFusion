@@ -20,7 +20,7 @@ const CTA = () => {
             Join hundreds of healthcare professionals who have already streamlined their practice with MedicFusion.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/signup">
+            <Link to="/login">
               <Button variant="secondary" size="large">
                 Start Free Trial
               </Button>

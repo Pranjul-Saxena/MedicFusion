@@ -39,11 +39,7 @@ const Hero = () => {
           {/* Image/Illustration */}
           <div className="relative">
             <div className="relative z-10 transform hover:scale-105 transition-transform duration-500">
-              <img
-                src="/hero-illustration.svg"
-                alt="Healthcare Management Dashboard"
-                className="w-full h-auto"
-              />
+              
             </div>
             {/* Decorative Elements */}
             <div className="absolute -top-4 -left-4 w-32 h-32 bg-blue-400 rounded-full opacity-20 animate-pulse" />
